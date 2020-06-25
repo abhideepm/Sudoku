@@ -19,10 +19,27 @@ function fillDiagonalBoxes() {
 	}
 }
 
-function fillRemainingBoxes(row, col) {}
+function fillRemainingBoxes(row, col) {
+	if (col === N) {
+		col = 0
+		row++
+		if (row === N) return true
+	}
+
+	if (sudokuVals[row][col] !== 0) return fillRemainingBoxes(row, col + 1)
+
+	for (let val = 1; val <= N; val++) {
+		if (isSafe(row, col, val)) {
+			sudokuVals[row][col] = val
+			if (fillRemainingBoxes(row, col + 1)) return true
+			sudokuVals[row][col] = 0 //backtracking step
+		}
+	}
+	return false
+}
 
 function remove50Digits() {
-	let count = 10
+	let count = 50
 	while (count !== 0) {
 		let randomCell = getRandInteger(N * N)
 		// console.log(randomCell)
@@ -85,18 +102,16 @@ console.log(sudokuVals)
 
 //page structure
 var main = document.createElement('div')
-main.classList.add('margin-center')
+main.classList.add('margin-center', 'text-center')
 document.body.appendChild(main)
 
+var clockicon = document.createElement('span')
+clockicon.classList.add('material-icons', 'text-white')
+clockicon.innerHTML = 'alarm'
+main.appendChild(clockicon)
+
 var timer = document.createElement('div')
-timer.classList.add(
-	'border',
-	'border-dark',
-	'text-center',
-	'h1',
-	'bg-dark',
-	'text-white'
-)
+timer.classList.add('text-center', 'h1', 'text-white')
 timer.innerHTML = 4 + ':' + 0
 main.appendChild(timer)
 startTimer()
