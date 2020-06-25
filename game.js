@@ -9,7 +9,7 @@ let BoxN = 3
 function fillRandomValues() {
 	fillDiagonalBoxes()
 	fillRemainingBoxes(0, BoxN)
-	remove50Digits()
+	// remove50Digits()
 }
 
 function fillDiagonalBoxes() {
@@ -32,7 +32,7 @@ function fillRemainingBoxes(row, col) {
 		if (isSafe(row, col, val)) {
 			sudokuVals[row][col] = val
 			if (fillRemainingBoxes(row, col + 1)) return true
-			sudokuVals[row][col] = 0 //backtracking step
+			sudokuVals[row][col] = 0
 		}
 	}
 	return false
@@ -97,6 +97,55 @@ function getRandInteger(num) {
 	return Math.floor(Math.random() * num + 1)
 }
 
+//sudoku validation
+function validateSudoku() {
+	for (let i = 0; i < N; i++) {
+		let vr = validRow(i)
+		let vc = validCol(i)
+		if (!(vr && vc)) {
+			return false
+		}
+	}
+	// console.log('hello')
+	return validateBox()
+}
+
+function validRow(row) {
+	let s = new Set()
+	for (let j = 0; j < N; j++) {
+		let temp = sudokuVals[row][j]
+		if (s.has(temp)) return false
+		else s.add(temp)
+	}
+	return true
+}
+
+function validCol(col) {
+	let s = new Set()
+	for (let i = 0; i < N; i++) {
+		let temp = sudokuVals[i][col]
+		if (s.has(temp)) return false
+		else s.add(temp)
+	}
+	return true
+}
+
+function validateBox() {
+	for (let row = 0; row < N; row += 3) {
+		for (let col = 0; col < N; col += 3) {
+			// console.log('row', row, 'col', col)
+			let s = new Set()
+			for (let i = row; i < row + 3; i++) {
+				for (let j = col; j < col + 3; j++) {
+					// console.log('i', i, 'j', j)
+					if (s.has(sudokuVals[i][j])) return false
+					else s.add(sudokuVals[i][j])
+				}
+			}
+		}
+	}
+	return true
+}
 // fillRandomValues()
 // console.log(sudokuVals)
 
@@ -132,10 +181,10 @@ function startTimer() {
 	}
 	if (m < 0) {
 		alert('timer completed')
-		clearInterval(stopTimer)
+		// console.log(validateSudoku())
 	} else timer.innerHTML = m + ':' + s
 	// console.log(m, ':', s)
-	stopTimer = setTimeout(startTimer, 1000)
+	if (m >= 0) stopTimer = setTimeout(startTimer, 1000)
 }
 
 function checkSecond(sec) {
@@ -227,7 +276,7 @@ function makeGrid() {
 					'border-dark',
 					'text-center',
 					'mx-0',
-					'px-0',
+					'pr-0',
 					'w-100',
 					'rounded-0'
 				)
@@ -243,7 +292,8 @@ function makeGrid() {
 					'border',
 					'border-dark',
 					'mx-0',
-					'px-0',
+					'pl-4',
+					'pr-0',
 					'w-100',
 					'rounded-0'
 				)
@@ -258,7 +308,7 @@ function makeGrid() {
 function resetGrid() {
 	sudokuVals = []
 	sudokuVals = new Array(9).fill(0).map(() => new Array(9).fill(0))
-	console.log(sudokuVals)
+	// console.log(sudokuVals)
 }
 
 function resetTimer() {
