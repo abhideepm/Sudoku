@@ -98,7 +98,7 @@ function getRandInteger(num) {
 }
 
 fillRandomValues()
-console.log(sudokuVals)
+// console.log(sudokuVals)
 
 //page structure
 var main = document.createElement('div')
@@ -148,8 +148,34 @@ centerrow.classList.add('row')
 container.appendChild(centerrow)
 
 var centercol = document.createElement('div')
-centercol.classList.add('offset-3', 'col-6')
+centercol.classList.add('offset-1', 'col-6')
 centerrow.appendChild(centercol)
+
+var btncol = document.createElement('div')
+btncol.classList.add('offset-1', 'col-2', 'd-flex', 'align-items-center')
+centerrow.appendChild(btncol)
+
+var startbtn = document.createElement('button')
+startbtn.innerHTML = 'Start!'
+startbtn.classList.add(
+	'btn',
+	'btn-outline-success',
+	'btn-lg',
+	'd-flex',
+	'margin-center'
+)
+btncol.appendChild(startbtn)
+
+var resetbtn = document.createElement('button')
+resetbtn.innerHTML = 'Reset!'
+resetbtn.classList.add(
+	'btn',
+	'btn-outline-danger',
+	'btn-lg',
+	'd-flex',
+	'margin-center'
+)
+btncol.appendChild(resetbtn)
 
 //making rows and cols
 for (let i = 0; i < N; i++) {

@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 body {
+	font-family: 'Pacifico', cursive !important;
 	background: #000428; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
 		to right,
@@ -19,8 +22,8 @@ body {
 	margin: 0 20%;
 }
 
-.skyblue {
-	background-color: #87ceeb;
+.black {
+	background-color: black;
 }
 /* .myborder {
 	border-width: 5px;
