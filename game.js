@@ -1,4 +1,5 @@
 let sudokuVals = new Array(9).fill(0).map(() => new Array(9).fill(0))
+let cloneSudokuVals
 // console.log(sudokuVals)
 //row and col size for the big sudoku
 let N = 9
@@ -11,6 +12,8 @@ let diff = url.searchParams.get('level')
 function fillRandomValues() {
 	fillDiagonalBoxes()
 	fillRemainingBoxes(0, BoxN)
+	cloneSudokuVals = sudokuVals.map((arr) => arr.slice())
+	console.log(cloneSudokuVals)
 	if (diff === 'easy') removeKDigits(15)
 	else if (diff === 'medium') removeKDigits(30)
 	else if (diff === 'hard') removeKDigits(50)
@@ -348,13 +351,30 @@ function makeGrid() {
 					'w-100',
 					'rounded-0'
 				)
-				// input.id = 'input' + (i + 1) + (j + 1)
+				input.id = 'input,' + (i + 1) + ',' + (j + 1)
 				input.addEventListener('change', (e) => {
 					let temp = +input.value
-					console.log(temp)
-					if (temp < 1 || temp > 9)
+					// console.log(temp)
+					if (temp < 1 || temp > 9) {
 						alert('Enter number between 1 and 9')
-					input.value = ''
+						input.value = ''
+					}
+					// console.log(input.id)
+					let inputArr = input.id.split(',')
+					let i = inputArr[1]
+					let j = inputArr[2]
+					console.log(i, j)
+					console.log(sudokuVals[i - 1][j - 1])
+					console.log(cloneSudokuVals[i - 1][j - 1])
+					console.log(input.classList)
+					if (temp !== cloneSudokuVals[i - 1][j - 1]) {
+						input.classList.add('text-white')
+						input.classList.add('bg-danger')
+					} else {
+						input.classList.remove('bg-danger')
+						input.classList.remove('text-white')
+					}
+					console.log(input.classList)
 					e.preventDefault()
 				})
 				col.appendChild(input)
