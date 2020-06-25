@@ -120,18 +120,22 @@ timer.classList.add('text-center', 'h1', 'text-white')
 timer.innerHTML = 4 + ':' + '00'
 main.appendChild(timer)
 // startTimer()
-
+let stopTimer
 function startTimer() {
-	var presentTime = timer.innerHTML
-	var timeArray = presentTime.split(':')
-	var m = timeArray[0]
-	var s = checkSecond(timeArray[1] - 1)
+	// console.log(timer.innerHTML)
+	let presentTime = timer.innerHTML
+	let timeArray = presentTime.split(':')
+	let m = timeArray[0]
+	let s = checkSecond(timeArray[1] - 1)
 	if (s == 59) {
 		m = m - 1
 	}
-	m < 0 ? alert('timer completed') : (timer.innerHTML = m + ':' + s)
+	if (m < 0) {
+		alert('timer completed')
+		clearInterval(stopTimer)
+	} else timer.innerHTML = m + ':' + s
 	// console.log(m, ':', s)
-	if (m >= 0) setTimeout(startTimer, 1000)
+	stopTimer = setTimeout(startTimer, 1000)
 }
 
 function checkSecond(sec) {
@@ -164,8 +168,10 @@ var startbtn = document.createElement('button')
 startbtn.innerHTML = 'Start!'
 startbtn.addEventListener('click', () => {
 	console.log('inside start')
+	resetGrid()
 	fillRandomValues()
 	makeGrid()
+	resetTimer()
 	startTimer()
 	startbtn.disabled = true
 })
@@ -183,10 +189,10 @@ resetbtn.innerHTML = 'Reset!'
 resetbtn.addEventListener('click', () => {
 	console.log('inside reset')
 	resetGrid()
-	fillRandomValues()
 	makeGrid()
-	timer.innerHTML = 4 + ':' + '00'
-	startTimer()
+	resetTimer()
+	clearInterval(stopTimer)
+	startbtn.disabled = false
 })
 resetbtn.classList.add(
 	'btn',
@@ -250,6 +256,11 @@ function makeGrid() {
 }
 
 function resetGrid() {
+	sudokuVals = []
 	sudokuVals = new Array(9).fill(0).map(() => new Array(9).fill(0))
 	console.log(sudokuVals)
+}
+
+function resetTimer() {
+	timer.innerHTML = 4 + ':' + '00'
 }
