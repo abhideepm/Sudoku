@@ -254,9 +254,7 @@ startbtn.classList.add(
 	'btn-outline-success',
 	'btn-lg',
 	'margin-center',
-	'w-md-25',
-	'w-md-50',
-	'w-lg-75',
+	'w-75',
 	'text-center'
 )
 btncol.appendChild(startbtn)
@@ -277,9 +275,7 @@ resetbtn.classList.add(
 	'btn-outline-danger',
 	'btn-lg',
 	'margin-center',
-	'w-md-25',
-	'w-md-50',
-	'w-lg-75',
+	'w-75',
 	'text-center'
 )
 btncol.appendChild(resetbtn)
@@ -295,9 +291,7 @@ submitbtn.classList.add(
 	'btn-outline-warning',
 	'btn-lg',
 	'margin-center',
-	'w-md-25',
-	'w-md-50',
-	'w-lg-75',
+	'w-75',
 	'text-center'
 )
 btncol.appendChild(submitbtn)
@@ -312,9 +306,10 @@ backbtn.classList.add(
 	'btn-outline-info',
 	'btn-lg',
 	'margin-center',
-	'w-md-25',
+	'w-sm-25',
 	'w-md-50',
 	'w-lg-75',
+	'w-75',
 	'text-center'
 )
 btncol.appendChild(backbtn)
