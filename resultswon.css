@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+	font-family: 'Pacifico', cursive !important;
+	background: #fc5c7d; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to right,
+		#6a82fb,
+		#fc5c7d
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to right,
+		#6a82fb,
+		#fc5c7d
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

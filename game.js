@@ -9,7 +9,7 @@ let BoxN = 3
 function fillRandomValues() {
 	fillDiagonalBoxes()
 	fillRemainingBoxes(0, BoxN)
-	// remove50Digits()
+	remove50Digits()
 }
 
 function fillDiagonalBoxes() {
@@ -181,6 +181,11 @@ function startTimer() {
 	}
 	if (m < 0) {
 		alert('timer completed')
+		if (validateSudoku()) {
+			window.location = 'resultswon.html?points=100'
+		} else {
+			window.location = 'resultslost.html'
+		}
 		// console.log(validateSudoku())
 	} else timer.innerHTML = m + ':' + s
 	// console.log(m, ':', s)
@@ -312,5 +317,5 @@ function resetGrid() {
 }
 
 function resetTimer() {
-	timer.innerHTML = 4 + ':' + '00'
+	timer.innerHTML = 0 + ':' + '05'
 }
