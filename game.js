@@ -330,13 +330,14 @@ function makeGrid() {
 					'w-100',
 					'rounded-0'
 				)
+				input.id = 'input' + (i + 1) + (j + 1)
 				input.value = sudokuVals[i][j]
 				col.appendChild(input)
 			} else {
 				let input = document.createElement('input')
 				input.type = 'number'
-				input.min = '1'
-				input.max = '9'
+				// input.min = '1'
+				// input.max = '9'
 				input.classList.add(
 					'form-control-lg',
 					'border',
@@ -347,6 +348,15 @@ function makeGrid() {
 					'w-100',
 					'rounded-0'
 				)
+				// input.id = 'input' + (i + 1) + (j + 1)
+				input.addEventListener('change', (e) => {
+					let temp = +input.value
+					console.log(temp)
+					if (temp < 1 || temp > 9)
+						alert('Enter number between 1 and 9')
+					input.value = ''
+					e.preventDefault()
+				})
 				col.appendChild(input)
 			}
 			row.appendChild(col)
