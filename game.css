@@ -25,6 +25,7 @@ body {
 .black {
 	background-color: black;
 }
-.myborder {
-	border-width: 5px;
+
+.text-responsive {
+	font-size: calc(100% + 1vw + 1vh);
 }

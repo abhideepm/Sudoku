@@ -10,10 +10,13 @@ let url = new URL(window.location.href)
 let diff = url.searchParams.get('level')
 //generate random numbers for sudoku
 function fillRandomValues() {
+	alert(
+		'Values entered wrong will be shown in red background, change it right value to make it go away'
+	)
 	fillDiagonalBoxes()
 	fillRemainingBoxes(0, BoxN)
 	cloneSudokuVals = sudokuVals.map((arr) => arr.slice())
-	console.log(cloneSudokuVals)
+	// console.log(cloneSudokuVals)
 	if (diff === 'easy') removeKDigits(15)
 	else if (diff === 'medium') removeKDigits(30)
 	else if (diff === 'hard') removeKDigits(50)
@@ -224,7 +227,10 @@ centerrow.appendChild(centercol)
 var btncol = document.createElement('div')
 btncol.classList.add(
 	'offset-1',
-	'col-2',
+	// 'col-2',
+	'col-sm-12',
+	'col-md-6',
+	'col-lg-2',
 	'd-flex',
 	'align-items-center',
 	'flex-wrap'
@@ -234,7 +240,7 @@ centerrow.appendChild(btncol)
 var startbtn = document.createElement('button')
 startbtn.innerHTML = 'Start!'
 startbtn.addEventListener('click', () => {
-	console.log('inside start')
+	// console.log('inside start')
 	resetGrid()
 	fillRandomValues()
 	makeGrid()
@@ -248,7 +254,9 @@ startbtn.classList.add(
 	'btn-outline-success',
 	'btn-lg',
 	'margin-center',
-	'w-75',
+	'w-md-25',
+	'w-md-50',
+	'w-lg-75',
 	'text-center'
 )
 btncol.appendChild(startbtn)
@@ -256,7 +264,7 @@ btncol.appendChild(startbtn)
 var resetbtn = document.createElement('button')
 resetbtn.innerHTML = 'Reset!'
 resetbtn.addEventListener('click', () => {
-	console.log('inside reset')
+	// console.log('inside reset')
 	resetGrid()
 	makeGrid()
 	resetTimer()
@@ -269,7 +277,9 @@ resetbtn.classList.add(
 	'btn-outline-danger',
 	'btn-lg',
 	'margin-center',
-	'w-75',
+	'w-md-25',
+	'w-md-50',
+	'w-lg-75',
 	'text-center'
 )
 btncol.appendChild(resetbtn)
@@ -285,7 +295,9 @@ submitbtn.classList.add(
 	'btn-outline-warning',
 	'btn-lg',
 	'margin-center',
-	'w-75',
+	'w-md-25',
+	'w-md-50',
+	'w-lg-75',
 	'text-center'
 )
 btncol.appendChild(submitbtn)
@@ -300,7 +312,9 @@ backbtn.classList.add(
 	'btn-outline-info',
 	'btn-lg',
 	'margin-center',
-	'w-75',
+	'w-md-25',
+	'w-md-50',
+	'w-lg-75',
 	'text-center'
 )
 btncol.appendChild(backbtn)
@@ -314,7 +328,14 @@ function makeGrid() {
 		row.classList.add('form-row', 'mx-0', 'justify-content-center')
 		for (let j = 0; j < N; j++) {
 			let col = document.createElement('div')
-			col.classList.add('col-1', 'border-dark', 'p-0')
+			col.classList.add(
+				// 'col-1',
+				'col-sm-9',
+				'col-md-4',
+				'col-lg-1',
+				'border-dark',
+				'p-0'
+			)
 			if (i % BoxN === 2) col.classList.add('border-bottom')
 			if (j % BoxN === 2) col.classList.add('border-right')
 			if (i == N - 1) col.classList.remove('border-bottom')
