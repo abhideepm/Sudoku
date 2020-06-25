@@ -97,13 +97,18 @@ function getRandInteger(num) {
 	return Math.floor(Math.random() * num + 1)
 }
 
-fillRandomValues()
+// fillRandomValues()
 // console.log(sudokuVals)
 
 //page structure
 var main = document.createElement('div')
 main.classList.add('margin-center', 'text-center')
 document.body.appendChild(main)
+
+var title = document.createElement('div')
+title.classList.add('text-white', 'display-2')
+title.innerHTML = 'Sudoku'
+main.appendChild(title)
 
 var clockicon = document.createElement('span')
 clockicon.classList.add('material-icons', 'text-white')
@@ -112,9 +117,9 @@ main.appendChild(clockicon)
 
 var timer = document.createElement('div')
 timer.classList.add('text-center', 'h1', 'text-white')
-timer.innerHTML = 4 + ':' + 0
+timer.innerHTML = 4 + ':' + '00'
 main.appendChild(timer)
-startTimer()
+// startTimer()
 
 function startTimer() {
 	var presentTime = timer.innerHTML
@@ -157,6 +162,13 @@ centerrow.appendChild(btncol)
 
 var startbtn = document.createElement('button')
 startbtn.innerHTML = 'Start!'
+startbtn.addEventListener('click', () => {
+	console.log('inside start')
+	fillRandomValues()
+	makeGrid()
+	startTimer()
+	startbtn.disabled = true
+})
 startbtn.classList.add(
 	'btn',
 	'btn-outline-success',
@@ -168,6 +180,14 @@ btncol.appendChild(startbtn)
 
 var resetbtn = document.createElement('button')
 resetbtn.innerHTML = 'Reset!'
+resetbtn.addEventListener('click', () => {
+	console.log('inside reset')
+	resetGrid()
+	fillRandomValues()
+	makeGrid()
+	timer.innerHTML = 4 + ':' + '00'
+	startTimer()
+})
 resetbtn.classList.add(
 	'btn',
 	'btn-outline-danger',
@@ -177,50 +197,59 @@ resetbtn.classList.add(
 )
 btncol.appendChild(resetbtn)
 
-//making rows and cols
-for (let i = 0; i < N; i++) {
-	let row = document.createElement('div')
-	row.classList.add('form-row', 'mx-0', 'justify-content-center')
-	for (let j = 0; j < N; j++) {
-		let col = document.createElement('div')
-		col.classList.add('col-1', 'border-dark', 'p-0')
-		if (i % BoxN === 2) col.classList.add('border-bottom')
-		if (j % BoxN === 2) col.classList.add('border-right')
-		if (i == N - 1) col.classList.remove('border-bottom')
-		if (j == N - 1) col.classList.remove('border-right')
-		if (sudokuVals[i][j] !== 0) {
-			let input = document.createElement('input')
-			input.type = 'number'
-			input.readOnly = true
-			input.classList.add(
-				'form-control-lg',
-				'border',
-				'border-dark',
-				'text-center',
-				'mx-0',
-				'px-0',
-				'w-100',
-				'rounded-0'
-			)
-			input.value = sudokuVals[i][j]
-			col.appendChild(input)
-		} else {
-			let input = document.createElement('input')
-			input.type = 'number'
-			input.min = '1'
-			input.max = '9'
-			input.classList.add(
-				'form-control-lg',
-				'border',
-				'border-dark',
-				'mx-0',
-				'px-0',
-				'w-100',
-				'rounded-0'
-			)
-			col.appendChild(input)
+makeGrid()
+function makeGrid() {
+	centercol.innerHTML = ''
+	//making rows and cols
+	for (let i = 0; i < N; i++) {
+		let row = document.createElement('div')
+		row.classList.add('form-row', 'mx-0', 'justify-content-center')
+		for (let j = 0; j < N; j++) {
+			let col = document.createElement('div')
+			col.classList.add('col-1', 'border-dark', 'p-0')
+			if (i % BoxN === 2) col.classList.add('border-bottom')
+			if (j % BoxN === 2) col.classList.add('border-right')
+			if (i == N - 1) col.classList.remove('border-bottom')
+			if (j == N - 1) col.classList.remove('border-right')
+			if (sudokuVals[i][j] !== 0) {
+				let input = document.createElement('input')
+				input.type = 'number'
+				input.readOnly = true
+				input.classList.add(
+					'form-control-lg',
+					'border',
+					'border-dark',
+					'text-center',
+					'mx-0',
+					'px-0',
+					'w-100',
+					'rounded-0'
+				)
+				input.value = sudokuVals[i][j]
+				col.appendChild(input)
+			} else {
+				let input = document.createElement('input')
+				input.type = 'number'
+				input.min = '1'
+				input.max = '9'
+				input.classList.add(
+					'form-control-lg',
+					'border',
+					'border-dark',
+					'mx-0',
+					'px-0',
+					'w-100',
+					'rounded-0'
+				)
+				col.appendChild(input)
+			}
+			row.appendChild(col)
 		}
-		row.appendChild(col)
+		centercol.appendChild(row)
 	}
-	centercol.appendChild(row)
+}
+
+function resetGrid() {
+	sudokuVals = new Array(9).fill(0).map(() => new Array(9).fill(0))
+	console.log(sudokuVals)
 }
