@@ -107,55 +107,60 @@ function getRandInteger(num) {
 	return Math.floor(Math.random() * num + 1)
 }
 
-//sudoku validation
+//new validation logic
 function validateSudoku() {
-	for (let i = 0; i < N; i++) {
-		let vr = validRow(i)
-		let vc = validCol(i)
-		if (!(vr && vc)) {
-			return false
-		}
-	}
-	// console.log('hello')
-	return validateBox()
+	return JSON.stringify(sudokuVals) === JSON.stringify(cloneSudokuVals)
 }
 
-function validRow(row) {
-	let s = new Set()
-	for (let j = 0; j < N; j++) {
-		let temp = sudokuVals[row][j]
-		if (s.has(temp)) return false
-		else s.add(temp)
-	}
-	return true
-}
+//old validation logic
+// function validateSudoku() {
+// for (let i = 0; i < N; i++) {
+// 	let vr = validRow(i)
+// 	let vc = validCol(i)
+// 	if (!(vr && vc)) {
+// 		return false
+// 	}
+// }
+// // console.log('hello')
+// return validateBox()
+// }
 
-function validCol(col) {
-	let s = new Set()
-	for (let i = 0; i < N; i++) {
-		let temp = sudokuVals[i][col]
-		if (s.has(temp)) return false
-		else s.add(temp)
-	}
-	return true
-}
+// function validRow(row) {
+// 	let s = new Set()
+// 	for (let j = 0; j < N; j++) {
+// 		let temp = sudokuVals[row][j]
+// 		if (s.has(temp)) return false
+// 		else s.add(temp)
+// 	}
+// 	return true
+// }
 
-function validateBox() {
-	for (let row = 0; row < N; row += 3) {
-		for (let col = 0; col < N; col += 3) {
-			// console.log('row', row, 'col', col)
-			let s = new Set()
-			for (let i = row; i < row + 3; i++) {
-				for (let j = col; j < col + 3; j++) {
-					// console.log('i', i, 'j', j)
-					if (s.has(sudokuVals[i][j])) return false
-					else s.add(sudokuVals[i][j])
-				}
-			}
-		}
-	}
-	return true
-}
+// function validCol(col) {
+// 	let s = new Set()
+// 	for (let i = 0; i < N; i++) {
+// 		let temp = sudokuVals[i][col]
+// 		if (s.has(temp)) return false
+// 		else s.add(temp)
+// 	}
+// 	return true
+// }
+
+// function validateBox() {
+// 	for (let row = 0; row < N; row += 3) {
+// 		for (let col = 0; col < N; col += 3) {
+// 			// console.log('row', row, 'col', col)
+// 			let s = new Set()
+// 			for (let i = row; i < row + 3; i++) {
+// 				for (let j = col; j < col + 3; j++) {
+// 					// console.log('i', i, 'j', j)
+// 					if (s.has(sudokuVals[i][j])) return false
+// 					else s.add(sudokuVals[i][j])
+// 				}
+// 			}
+// 		}
+// 	}
+// 	return true
+// }
 // fillRandomValues()
 // console.log(sudokuVals)
 
@@ -379,10 +384,10 @@ function makeGrid() {
 					let inputArr = input.id.split(',')
 					let i = inputArr[1]
 					let j = inputArr[2]
-					console.log(i, j)
-					console.log(sudokuVals[i - 1][j - 1])
-					console.log(cloneSudokuVals[i - 1][j - 1])
-					console.log(input.classList)
+					// console.log(i, j)
+					// console.log(sudokuVals[i - 1][j - 1])
+					// console.log(cloneSudokuVals[i - 1][j - 1])
+					// console.log(input.classList)
 					if (temp !== cloneSudokuVals[i - 1][j - 1]) {
 						input.classList.add('text-white')
 						input.classList.add('bg-danger')
@@ -390,7 +395,8 @@ function makeGrid() {
 						input.classList.remove('bg-danger')
 						input.classList.remove('text-white')
 					}
-					console.log(input.classList)
+					// console.log(input.classList)
+					sudokuVals[i - 1][j - 1] = temp
 					e.preventDefault()
 				})
 				col.appendChild(input)
