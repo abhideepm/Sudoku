@@ -180,9 +180,9 @@ function startTimer() {
 		m = m - 1
 	}
 	if (m < 0) {
-		alert('timer completed')
+		// alert('timer completed')
 		if (validateSudoku()) {
-			window.location = 'resultswon.html?points=100'
+			window.location = 'resultswon.html?points=0'
 		} else {
 			window.location = 'resultslost.html'
 		}
@@ -215,7 +215,7 @@ centercol.classList.add('offset-1', 'col-6')
 centerrow.appendChild(centercol)
 
 var btncol = document.createElement('div')
-btncol.classList.add('offset-1', 'col-2', 'd-flex', 'align-items-center')
+btncol.classList.add('col-2', 'd-flex', 'align-items-center')
 centerrow.appendChild(btncol)
 
 var startbtn = document.createElement('button')
@@ -228,6 +228,7 @@ startbtn.addEventListener('click', () => {
 	resetTimer()
 	startTimer()
 	startbtn.disabled = true
+	submitbtn.disabled = false
 })
 startbtn.classList.add(
 	'btn',
@@ -247,6 +248,7 @@ resetbtn.addEventListener('click', () => {
 	resetTimer()
 	clearInterval(stopTimer)
 	startbtn.disabled = false
+	submitbtn.disabled = true
 })
 resetbtn.classList.add(
 	'btn',
@@ -256,6 +258,21 @@ resetbtn.classList.add(
 	'margin-center'
 )
 btncol.appendChild(resetbtn)
+
+var submitbtn = document.createElement('button')
+submitbtn.innerHTML = 'Submit!'
+submitbtn.disabled = true
+submitbtn.addEventListener('click', () => {
+	generatePoints()
+})
+submitbtn.classList.add(
+	'btn',
+	'btn-outline-warning',
+	'btn-lg',
+	'd-flex',
+	'margin-center'
+)
+btncol.appendChild(submitbtn)
 
 makeGrid()
 function makeGrid() {
@@ -317,5 +334,40 @@ function resetGrid() {
 }
 
 function resetTimer() {
-	timer.innerHTML = 0 + ':' + '05'
+	timer.innerHTML = 4 + ':' + '00'
+}
+
+function generatePoints() {
+	if (validateSudoku()) {
+		let val = timer.innerHTML
+		let [m, s] = val.split(':').map(Number)
+		// console.log(m, s)
+		let minToSec = 0
+		if (m > 0) {
+			switch (m) {
+				case 1:
+					minToSec = 60
+					break
+				case 2:
+					minToSec = 120
+					break
+				case 3:
+					minToSec = 180
+					break
+			}
+		}
+		// console.log(minToSec)
+		let timeInSec = m > 0 ? minToSec + s : s
+		let wonURL = 'resultswon.html?points='
+		let remainingTime = 240 - timeInSec
+		// console.log(remainingTime)
+		if (remainingTime < 60) wonURL += '400'
+		else if (remainingTime < 120 && remainingTime > 60) wonURL += '300'
+		else if (remainingTime < 180 && remainingTime > 120) wonURL += '200'
+		else wonURL += '100'
+		// console.log(wonURL)
+		window.location = wonURL
+	} else {
+		window.location = 'resultslost.html'
+	}
 }

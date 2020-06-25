@@ -12,11 +12,14 @@ title.innerHTML = 'You Won!'
 container.appendChild(title)
 
 var url = new URL(window.location.href)
-let points = url.searchParams.get('points')
+let points = +url.searchParams.get('points')
 
 var subtitle = document.createElement('div')
 subtitle.classList.add('h2', 'text-center')
-subtitle.innerHTML = 'You scored ' + points + ' Points'
+subtitle.innerHTML =
+	points === 0
+		? 'You finished just in time, you are not awarded any points'
+		: 'You scored ' + points + ' Points'
 container.appendChild(subtitle)
 
 var home = document.createElement('a')
