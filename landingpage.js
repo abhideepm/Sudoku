@@ -21,7 +21,7 @@ main.appendChild(subtitle)
 var playbtn = document.createElement('a')
 playbtn.classList.add('my-3')
 playbtn.classList.add('btn', 'btn-outline-light', 'btn-lg')
-playbtn.href = 'sudokugame.html'
+playbtn.href = 'game.html'
 playbtn.setAttribute('role', 'button')
 playbtn.innerHTML = 'Play!'
 main.appendChild(playbtn)
