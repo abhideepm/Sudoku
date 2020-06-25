@@ -18,7 +18,7 @@ var subtitle = document.createElement('div')
 subtitle.classList.add('h2', 'text-center')
 subtitle.innerHTML =
 	points === 0
-		? 'You finished just in time, you are not awarded any points'
+		? 'Since you finished just in time, you are not awarded any points'
 		: 'You scored ' + points + ' Points'
 container.appendChild(subtitle)
 

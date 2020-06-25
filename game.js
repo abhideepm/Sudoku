@@ -5,11 +5,15 @@ let N = 9
 //row and col size for each box
 let BoxN = 3
 
+let url = new URL(window.location.href)
+let diff = url.searchParams.get('level')
 //generate random numbers for sudoku
 function fillRandomValues() {
 	fillDiagonalBoxes()
 	fillRemainingBoxes(0, BoxN)
-	remove50Digits()
+	if (diff === 'easy') removeKDigits(15)
+	else if (diff === 'medium') removeKDigits(30)
+	else if (diff === 'hard') removeKDigits(50)
 }
 
 function fillDiagonalBoxes() {
@@ -38,8 +42,8 @@ function fillRemainingBoxes(row, col) {
 	return false
 }
 
-function remove50Digits() {
-	let count = 50
+function removeKDigits(K) {
+	let count = K
 	while (count !== 0) {
 		let randomCell = getRandInteger(N * N)
 		// console.log(randomCell)
@@ -215,7 +219,13 @@ centercol.classList.add('offset-1', 'col-6')
 centerrow.appendChild(centercol)
 
 var btncol = document.createElement('div')
-btncol.classList.add('col-2', 'd-flex', 'align-items-center')
+btncol.classList.add(
+	'offset-1',
+	'col-2',
+	'd-flex',
+	'align-items-center',
+	'flex-wrap'
+)
 centerrow.appendChild(btncol)
 
 var startbtn = document.createElement('button')
@@ -234,8 +244,9 @@ startbtn.classList.add(
 	'btn',
 	'btn-outline-success',
 	'btn-lg',
-	'd-flex',
-	'margin-center'
+	'margin-center',
+	'w-75',
+	'text-center'
 )
 btncol.appendChild(startbtn)
 
@@ -254,8 +265,9 @@ resetbtn.classList.add(
 	'btn',
 	'btn-outline-danger',
 	'btn-lg',
-	'd-flex',
-	'margin-center'
+	'margin-center',
+	'w-75',
+	'text-center'
 )
 btncol.appendChild(resetbtn)
 
@@ -269,10 +281,26 @@ submitbtn.classList.add(
 	'btn',
 	'btn-outline-warning',
 	'btn-lg',
-	'd-flex',
-	'margin-center'
+	'margin-center',
+	'w-75',
+	'text-center'
 )
 btncol.appendChild(submitbtn)
+
+var backbtn = document.createElement('button')
+backbtn.innerHTML = 'Select Level'
+backbtn.addEventListener('click', () => {
+	window.location = 'difficultylevels.html'
+})
+backbtn.classList.add(
+	'btn',
+	'btn-outline-info',
+	'btn-lg',
+	'margin-center',
+	'w-75',
+	'text-center'
+)
+btncol.appendChild(backbtn)
 
 makeGrid()
 function makeGrid() {
