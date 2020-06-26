@@ -350,6 +350,10 @@ function makeGrid() {
 					sudokuVals[i - 1][j - 1] = temp
 					e.preventDefault()
 				})
+				input.addEventListener('click', (e) => {
+					input.value = ''
+					e.preventDefault()
+				})
 				col.appendChild(input)
 			}
 			row.appendChild(col)
