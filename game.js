@@ -15,7 +15,7 @@ function fillRandomValues() {
 	)
 	fillDiagonalBoxes()
 	fillRemainingBoxes(0, BoxN)
-	cloneSudokuVals = sudokuVals.map((arr) => arr.slice())
+	cloneSudokuVals = sudokuVals.map(arr => arr.slice())
 	// console.log(cloneSudokuVals)
 	if (diff === 'easy') removeKDigits(15)
 	else if (diff === 'medium') removeKDigits(30)
@@ -177,16 +177,23 @@ centerrow.classList.add('row')
 container.appendChild(centerrow)
 
 var centercol = document.createElement('div')
-centercol.classList.add('offset-1', 'col-6')
+centercol.classList.add(
+	'offset-lg-1',
+	// 'col-6',
+	'col-sm-12',
+	'col-md-6',
+	'col-lg-4',
+	'text-center'
+)
 centerrow.appendChild(centercol)
 
 var btncol = document.createElement('div')
 btncol.classList.add(
-	'offset-1',
+	// 'offset-1',
 	// 'col-2',
 	'col-sm-12',
 	'col-md-6',
-	'col-lg-2',
+	'col-lg-6',
 	'd-flex',
 	'align-items-center',
 	'flex-wrap'
@@ -281,9 +288,10 @@ function makeGrid() {
 			let col = document.createElement('div')
 			col.classList.add(
 				// 'col-1',
-				'col-sm-9',
-				'col-md-4',
-				'col-lg-1',
+				// 'col-sm-9',
+				// 'col-md-4',
+				// 'col-lg-1',
+				'col',
 				'border-dark',
 				'p-0'
 			)
@@ -324,7 +332,7 @@ function makeGrid() {
 					'rounded-0'
 				)
 				input.id = 'input,' + (i + 1) + ',' + (j + 1)
-				input.addEventListener('change', (e) => {
+				input.addEventListener('change', e => {
 					let temp = +input.value
 					// console.log(temp)
 					if (temp < 1 || temp > 9) {
@@ -350,7 +358,7 @@ function makeGrid() {
 					sudokuVals[i - 1][j - 1] = temp
 					e.preventDefault()
 				})
-				input.addEventListener('click', (e) => {
+				input.addEventListener('click', e => {
 					input.value = ''
 					e.preventDefault()
 				})
